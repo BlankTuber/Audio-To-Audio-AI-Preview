@@ -1,19 +1,22 @@
 {
-  "name": "discord_bot",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "@discordjs/voice": "^0.18.0",
-    "child_process": "^1.0.2",
-    "discord.js": "^14.18.0",
-    "dotenv": "^16.4.7",
-    "ffmpeg-static": "^5.2.0"
-  }
+    "name": "discord_bot",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@discordjs/voice": "^0.18.0",
+        "child_process": "^1.0.2",
+        "discord.js": "^14.18.0",
+        "dotenv": "^16.4.7",
+        "ffmpeg-static": "^5.2.0",
+        "nodejs-whisper": "^0.2.6",
+        "ollama": "^0.5.14",
+        "say": "^0.16.0"
+    }
 }
