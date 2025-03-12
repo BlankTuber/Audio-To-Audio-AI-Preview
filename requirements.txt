@@ -1,0 +1,23 @@
+# Discord integration
+discord.py>=2.5.2
+
+# Environment and configuration
+python-dotenv>=1.0.1
+
+# Speech-to-Text
+openai-whisper>=20240930
+pyaudio>=0.2.14
+pydub>=0.25.1
+
+# Voice Activity Detection
+webrtcvad>=2.0.10
+
+# LLM integration
+ollama>=0.4.7
+
+# Text-to-Speech
+TTS>=0.22.0  # Mozilla TTS
+
+# Audio processing
+python-ffmpeg>=2.0.12
+numpy>=2.2.3
