@@ -2,16 +2,14 @@
 
 ## 📋 Project Summary
 
-This minimalist MVP implements a basic audio processing pipeline for Discord that connects speech-to-text, large language models, and text-to-speech technologies. The bot listens to voice channel input, transcribes it, processes the text through an LLM, and responds with generated speech - creating a simple audio-to-audio AI assistant experience.
+This minimalist MVP implements a basic audio processing pipeline for Discord that connects speech-to-text, large language models, and text-to-speech technologies. The bot listens to voice channel input, transcribes it, processes the text through an LLM, and responds with generated speech - creating a simple audio-to-audio AI assistant experience. This version utilizes Google Cloud Speech-to-Text and Text-to-Speech APIs for improved cloud-based performance.
 
 ## 🛠️ Tech Stack
 
 -   **Python 3.9+** - Core programming language
 -   **Discord.py** - Discord bot framework with voice channel support
--   **Whisper** - OpenAI's speech recognition model for transcription
--   **WebRTC VAD** - Voice activity detection to identify speech
--   **Ollama** - Local LLM hosting for text processing
--   **Mozilla TTS** - High-quality text-to-speech synthesis
+-   **Google Cloud Speech-to-Text API** - Cloud-based speech recognition for transcription
+-   **Google Cloud Text-to-Speech API** - Cloud-based text-to-speech synthesis
 -   **FFmpeg** - Audio processing dependency
 
 ## ⚙️ Setup & Installation
@@ -21,50 +19,45 @@ This minimalist MVP implements a basic audio processing pipeline for Discord tha
 -   Python 3.9+ installed
 -   FFmpeg installed
 -   Discord Developer account with bot token
--   Sufficient hardware for running Ollama models locally
+-   Google Cloud Platform project with billing enabled
+-   Google Cloud SDK installed (optional, for local development)
 
 ### Installation Steps
 
 1. **Clone the repository**
 
-    ```bash
-    git clone https://github.com/yourusername/Audio-To-Audio-AI-Preview.git
+    ```py
+    git clone https://github.com/BlankTuber/Audio-To-Audio-AI-Preview.git
     cd Audio-To-Audio-AI-Preview
     ```
 
 2. **Create virtual environment**
 
-    ```bash
+    ```py
     python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    source venv/bin/activate
     ```
 
 3. **Install dependencies**
 
-    ```bash
+    ```py
     pip install -r requirements.txt
     ```
 
-4. **Configure environment variables**
+4. **Configure Google Cloud Credentials**
 
-    - Create a `.env` file with:
+    - **Set up Google Cloud Project:** You'll need a Google Cloud Platform project with billing enabled.
+    - **Enable APIs:** Enable the "Cloud Speech-to-Text API" and "Cloud Text-to-Speech API" for your project in the [Google Cloud Console](https://console.cloud.google.com/).
+    - **Create Service Account Credentials:** Create a service account with the necessary permissions and download the JSON key file.
+    - **Set Environment Variable:** Create a `.env` file with:
 
         ```py
-        # Discord Bot Configuration
         DISCORD_TOKEN=
         CLIENT_ID=
         GUILD_ID=
 
-        # Ollama Configuration
-        OLLAMA_API_HOST=http://localhost:11434
-        OLLAMA_DEFAULT_MODEL=mistral
+        GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service_account_key.json
         ```
-
-5. **Initialize Ollama**
-
-    ```bash
-    ollama pull mistral
-    ```
 
 ## 🗺️ Implementation Roadmap
 
@@ -73,15 +66,15 @@ This minimalist MVP implements a basic audio processing pipeline for Discord tha
 -   [x] Set up project structure and environment
 -   [ ] Implement basic Discord bot with slash command handling
 -   [ ] Add voice channel connection capabilities
--   [ ] Create simple configuration loading from .env
+-   [ ] Create configuration loading from .env
 
 ### Phase 2: 🎤 Speech-to-Text Integration (Days 3-5)
 
--   [ ] Integrate Whisper model for audio transcription
-    -   Use `openai-whisper` package for processing
-    -   Implement basic audio recording and saving
--   [ ] Implement WebRTC VAD for voice activity detection
--   [ ] Create audio capture pipeline with VAD triggers
+-   [ ] Integrate Google Cloud Speech-to-Text API for audio transcription
+    -   Use `google-cloud-speech` library
+    -   Implement basic audio recording and saving from Discord voice channel
+    -   Send audio to Google Cloud Speech-to-Text API for transcription
+-   [ ] Create audio capture pipeline and transcription process
 
 ### Phase 3: 🧠 LLM Processing (Days 6-8)
 
@@ -93,10 +86,11 @@ This minimalist MVP implements a basic audio processing pipeline for Discord tha
 
 ### Phase 4: 🔊 Text-to-Speech Generation (Days 9-11)
 
--   [ ] Implement Mozilla TTS for speech synthesis
-    -   Set up with default voice model
-    -   Create basic audio output mechanism
--   [ ] Build simple audio playback system
+-   [ ] Implement Google Cloud Text-to-Speech API for speech synthesis
+    -   Use `google-cloud-texttospeech` library
+    -   Set up voice configuration using Google Cloud Text-to-Speech voices
+    -   Create audio output mechanism to Discord voice channel
+-   [ ] Build simple audio playback system to Discord
 
 ### Phase 5: 🔄 Pipeline Integration (Days 12-14)
 
@@ -111,38 +105,30 @@ This minimalist MVP implements a basic audio processing pipeline for Discord tha
 
 ```py
 Audio-To-Audio-AI-Preview/
-├── .env                        # Environment variables
-├── .gitignore                  # Git ignore file
-├── README.md                   # Project documentation
-├── main.py                     # Entry point for the application
-├── requirements.txt            # Python dependencies
-├── src/                        # Source code
-│   ├── bot/                    # Discord bot functionality
+├── .env
+├── .gitignore
+├── README.md
+├── main.py
+├── requirements.txt
+├── src/
+│   ├── bot/
 │   │   ├── __init__.py
-│   │   ├── client.py           # Discord client setup
-│   │   └── commands.py         # Slash commands
-│   ├── stt/                    # Speech-to-text components
+│   │   ├── client.py
+│   │   └── commands.py
+│   ├── stt/
 │   │   ├── __init__.py
-│   │   ├── whisper_client.py   # Whisper integration
-│   │   └── vad.py              # Voice activity detection
-│   ├── llm/                    # LLM processing
+│   │   └── google_stt_client.py
+│   ├── llm/
 │   │   ├── __init__.py
-│   │   └── ollama_client.py    # Ollama integration
-│   ├── tts/                    # Text-to-speech components
+│   │   └── ollama_client.py
+│   ├── tts/
 │   │   ├── __init__.py
-│   │   └── tts_engine.py       # TTS integration
-│   └── utils/                  # Utility functions
+│   │   └── google_tts_engine.py
+│   └── utils/
 │       └── __init__.py
-└── data/                       # Data storage
-    └── audio/                  # Temporary audio files
+└── data/
+    └── audio/
 ```
-
-## 📊 Performance Considerations
-
--   Basic latency management for acceptable response times
--   Memory usage for running alongside Ollama
--   Single voice channel support
--   VAD aggressiveness tuning for optimal speech detection
 
 ## 🔍 Future Enhancements
 

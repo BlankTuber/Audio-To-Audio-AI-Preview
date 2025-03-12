@@ -4,19 +4,11 @@ discord.py>=2.5.2
 # Environment and configuration
 python-dotenv>=1.0.1
 
-# Speech-to-Text
-openai-whisper>=20240930
-pyaudio>=0.2.14
-pydub>=0.25.1
+# Speech-to-Text (Google Cloud Speech-to-Text API)
+google-cloud-speech>=2.31.0
 
-# Voice Activity Detection
-webrtcvad>=2.0.10
-
-# LLM integration
-ollama>=0.4.7
-
-# Text-to-Speech
-TTS>=0.22.0  # Mozilla TTS
+# Text-to-Speech (Google Cloud Text-to-Speech API)
+google-cloud-texttospeech>=2.25.0
 
 # Audio processing
 python-ffmpeg>=2.0.12
