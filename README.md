@@ -56,6 +56,10 @@ This minimalist MVP implements a basic audio processing pipeline for Discord tha
         CLIENT_ID=
         GUILD_ID=
 
+        # Ollama Configuration
+        OLLAMA_API_HOST=http://localhost:11434
+        OLLAMA_DEFAULT_MODEL=mistral
+
         GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service_account_key.json
         ```
 
